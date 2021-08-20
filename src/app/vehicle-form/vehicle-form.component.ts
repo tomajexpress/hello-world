@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vehicle-form.component.css']
 })
 export class VehicleFormComponent implements OnInit {
-  vehicle: any = {};
+  vehicle: any = {
+    features: []
+  };
   makes: any[] = [];
   models: any[] = [];
   features: any[] = [];
@@ -29,11 +31,22 @@ export class VehicleFormComponent implements OnInit {
 
   onMakeChange(){
     var selectedMake = this.makes.find(m=> m.id == this.vehicle.makeId)
+
     this.models = selectedMake ? selectedMake.models : [];
 
     delete this.vehicle.modelId;
 
     console.log("Vehicle: "+ this.vehicle.make);
+  }
+
+  onFeatureToggle(featureId: any, event: any){
+    if (event.target.checked){
+      this.vehicle.features.push(featureId);
+    }
+    else{
+      var index = this.vehicle.features.indexOf(featureId);
+      this.vehicle.features.splice(index, 1);
+    }
   }
 
 }
