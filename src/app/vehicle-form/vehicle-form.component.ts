@@ -54,9 +54,6 @@ export class VehicleFormComponent implements OnInit {
   }
 
   submit(){
-    this.vehicle.makeId = +this.vehicle.makeId;
-    this.vehicle.modelId = +this.vehicle.modelId;
-    this.vehicle.isRegistered = this.vehicle.isRegistered === "true" ? true : false;
     this.vehicleService.create(this.vehicle)
     .subscribe(x=> console.log(x));
   }

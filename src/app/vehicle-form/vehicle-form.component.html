@@ -8,7 +8,7 @@
         <select id="make" class="form-control" (change)="onMakeChange()" [(ngModel)]="vehicle.makeId" 
         name="makeId" required #make="ngModel">
             <option value=""></option>
-            <option *ngFor="let m of makes" value="{{m.id}}">
+            <option *ngFor="let m of makes" [ngValue]="m.id">
                 {{m.name}}
             </option>
         </select>
@@ -20,7 +20,7 @@
         <select id="model" class="form-control" [(ngModel)]="vehicle.modelId" 
         name="modelId" required #model="ngModel">
             <option value=""></option>
-            <option *ngFor="let m of models" value="{{m.id}}">
+            <option *ngFor="let m of models" [ngValue]="m.id">
                 {{m.name}}
             </option>
         </select>
@@ -30,10 +30,10 @@
     <p>Is this vehicle registered?</p>
     
     <label for="registered">
-        <input type="radio" id="registered" name="IsRegistered" value='true' [(ngModel)]="vehicle.isRegistered"> Yes
+        <input type="radio" id="registered" name="IsRegistered"   [value]='true' [(ngModel)]="vehicle.isRegistered"> Yes
     </label>
     <label for="notRegistered" class="radio radio-inline" style="margin-left: 10px;">
-        <input type="radio" id="notRegistered" name="IsRegistered" value='false' [(ngModel)]="vehicle.isRegistered"> No
+        <input type="radio" id="notRegistered" name="IsRegistered"   [value]='false' [(ngModel)]="vehicle.isRegistered"> No
     </label>
    
 
