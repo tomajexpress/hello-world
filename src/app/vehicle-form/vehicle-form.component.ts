@@ -8,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VehicleFormComponent implements OnInit {
   vehicle: any = {
-    features: []
+    features: [],
+    modelId:null,
+    makeId: null,
+    contact: {},
+    isRegistered: false
   };
   makes: any[] = [];
   models: any[] = [];
@@ -47,6 +51,14 @@ export class VehicleFormComponent implements OnInit {
       var index = this.vehicle.features.indexOf(featureId);
       this.vehicle.features.splice(index, 1);
     }
+  }
+
+  submit(){
+    this.vehicle.makeId = +this.vehicle.makeId;
+    this.vehicle.modelId = +this.vehicle.modelId;
+    this.vehicle.isRegistered = this.vehicle.isRegistered === "true" ? true : false;
+    this.vehicleService.create(this.vehicle)
+    .subscribe(x=> console.log(x));
   }
 
 }

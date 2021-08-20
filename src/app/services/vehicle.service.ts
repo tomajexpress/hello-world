@@ -17,4 +17,9 @@ export class VehicleService {
   {
     return this.http.get<any[]>(this.url+'/features');
   }
+
+  create(vehicle: any){
+    return this.http.post(this.url+'/vehicles', vehicle);
+  }
+
 }
