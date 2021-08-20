@@ -1,0 +1,86 @@
+<form #frm="ngForm" (ngSubmit)="submit(frm)">
+    <div class="form-group">
+        <label for="Name"> Name</label>
+        <input 
+        required 
+        ngModel 
+        id="Name" 
+        name="Name"  
+        #Name="ngModel"  
+        minlength="3" 
+        maxlength="20" 
+        (change)="log(Name)" 
+        type="text" 
+        class="form-control">
+
+        <div class="alert alert-danger" *ngIf="Name.touched && !Name.valid">
+
+        <div *ngIf="Name.errors!=null && Name.errors.required">
+             Name is required
+        </div>
+
+        <div *ngIf="Name.errors!=null && Name.errors.minlength">
+             Name must be minimum 3 characters
+        </div>
+
+    </div>
+
+    
+</div>
+    <div class="form-group">
+        <label for="comment">Comment</label>
+
+        <textarea 
+        ngModel 
+        name="comment" 
+        id="comment" 
+        cols="30" 
+        rows="10" 
+        class="form-control">
+        </textarea>
+    </div>
+
+    <div class="checkbox">
+        <label for="">
+            <input type="checkbox" ngModel name="isSubscribed"> Subscribe to mainling list
+        </label>
+    </div>
+    
+    <div class="form-group">
+        <label for="contactMethod"> Contact Method </label>
+        <select ngModel name="contactMethodId" id="contactMethodId" class="form-control">
+            <option *ngFor="let method of contactMethods" [ngValue]="method.id">{{method.name}}</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary" [disabled]="!frm.valid">
+            Submit
+        </button>
+    </div>
+
+    <p>{{frm.value | json}}</p>
+
+</form>
+
+<div class="container">
+<p>User Contacts</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Comment</th>
+            <th>Is Subscribed</th>
+            <th>Contact Method</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let contact of userContacts.entities">
+            <td>{{contact.name}}</td>
+            <td>{{contact.comment}}</td>
+            <td>{{contact.isSubscribed}}</td>
+            <td>{{contact.contactMethod.name}}</td>
+        </tr>
+    </tbody>
+</table>
+</div>

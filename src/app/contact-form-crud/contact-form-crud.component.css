@@ -1,0 +1,11 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+div {
+ margin-top: 10px;
+}
+
+label{
+    text-decoration: black;
+
+    text-shadow: black;
+}
