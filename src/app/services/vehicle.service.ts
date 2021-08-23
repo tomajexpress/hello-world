@@ -1,3 +1,4 @@
+import { Vehicle } from './../Models/vehicle';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -7,6 +8,11 @@ import { Injectable } from '@angular/core';
 export class VehicleService {
   private url = 'http://localhost:5007/api';
   constructor(private http: HttpClient) { }
+
+  getVehicle(id: any)
+  {
+    return this.http.get(this.url+'/vehicles/'+id);
+  }
 
   getMakes()
   {
@@ -20,6 +26,10 @@ export class VehicleService {
 
   create(vehicle: any){
     return this.http.post(this.url+'/vehicles', vehicle);
+  }
+
+  update(vehicle : any){
+    return this.http.put(this.url+'/vehicles/'+vehicle.id, vehicle);
   }
 
 }
