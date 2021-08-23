@@ -1,5 +1,6 @@
 import { VehicleService } from '../services/vehicle.service';
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -18,7 +19,11 @@ export class VehicleFormComponent implements OnInit {
   models: any[] = [];
   features: any[] = [];
 
-  constructor(private vehicleService: VehicleService) { 
+  title = 'toaster-not';
+
+
+  constructor(private vehicleService: VehicleService, 
+    private notifyService : NotificationService) { 
     
   }
 
@@ -40,7 +45,9 @@ export class VehicleFormComponent implements OnInit {
 
     delete this.vehicle.modelId;
 
-    console.log("Vehicle: "+ this.vehicle.make);
+    this.notifyService.showSuccess("Selected Make: ", this.vehicle.makeId)
+
+    console.log("Vehicle: "+ this.vehicle.makeId);
   }
 
   onFeatureToggle(featureId: any, event: any){
@@ -55,7 +62,14 @@ export class VehicleFormComponent implements OnInit {
 
   submit(){
     this.vehicleService.create(this.vehicle)
-    .subscribe(x=> console.log(x));
+    .subscribe(
+      x=> console.log(x), 
+      err=> {
+          this.notifyService.showError("Unexpected Error!", "Error")
+      }
+      );
+
+    this.notifyService.showSuccess("Vehicle Saved.","Success")
   }
 
 }

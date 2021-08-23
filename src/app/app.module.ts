@@ -1,6 +1,6 @@
 import { CoursesService } from './courses.service';
 import { CoursesComponent } from './courses.component';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +17,10 @@ import { NavmenuComponent } from './navmenu/navmenu.component';
 
 import { RouterModule } from '@angular/router';
 import { VehicleService } from './services/vehicle.service';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { ErrorHandlerService } from './error-handler.service';
 
 
 @NgModule({
@@ -36,7 +40,8 @@ import { VehicleService } from './services/vehicle.service';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     RouterModule.forRoot([
       { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
       { path: 'vehicles/new', component: VehicleFormComponent },
@@ -46,7 +51,8 @@ import { VehicleService } from './services/vehicle.service';
   ],
   providers: [
     CoursesService,
-    VehicleService
+    VehicleService,
+    {provide: ErrorHandler, useClass: ErrorHandlerService}
   ],
   bootstrap: [AppComponent]
 })
