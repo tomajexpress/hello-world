@@ -26,7 +26,6 @@ export class VehicleFormComponent implements OnInit {
 
   title = 'toaster-not';
 
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -39,27 +38,28 @@ export class VehicleFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var sources = [
+      this.vehicleService.getMakes(),
+      this.vehicleService.getFeatures(),
+    ];
+    
+    if (this.vehicle.id)
+        sources.push(<any>this.vehicleService.getVehicle(this.vehicle.id));
 
-    if(this.vehicle.id){
-      this.vehicleService.getVehicle(this.vehicle.id).subscribe(res => {
-      this.setVehicle(<Vehicle>res);
-      this.populateModels();
-      });
-    }
+    forkJoin(sources).subscribe(data=>{
+      this.makes = data[0];
 
-    // forkJoin([
-    //   this.vehicleService.getMakes(),
+      this.features = data[1];
 
-    // ]);
-
-    this.vehicleService.getMakes().subscribe(makes => { 
-        this.makes = makes;
-        console.log(this.makes); 
-      });
-
-      this.vehicleService.getFeatures().subscribe(f => { 
-        this.features = f;
-      });
+      if (this.vehicle.id) {
+        this.setVehicle(<Vehicle><any>data[2]);
+        this.populateModels();
+      }
+    }, err=> {
+      if (err.status == 404) {
+        this.notifyService.showError('Error in Connection','Error');
+      }
+    });
   }
 
   private populateModels(){
@@ -71,7 +71,7 @@ export class VehicleFormComponent implements OnInit {
     this.vehicle.id = v.id;
     this.vehicle.makeId = v.make.id;
     this.vehicle.modelId = v.model.id;
-    this.vehicle.isRegistered;
+    this.vehicle.isRegistered = v.isRegistered;
     this.vehicle.contact = v.contact;
     this.vehicle.features = _.pluck(v.features, 'id');
   }
@@ -94,19 +94,23 @@ export class VehicleFormComponent implements OnInit {
 
   submit(){
     if (this.vehicle.id) {
-      this.vehicleService.update(this.vehicle).subscribe(x=>{
+        this.vehicleService.update(this.vehicle).subscribe(x=>{
         this.notifyService.showSuccess("Vehicle Updated.", "Success");
       });
 
       return;
     }
     else{
+
+      if (this.vehicle.id === null) {
+        this.vehicle.id = 0;
+      }
+
       this.vehicleService.create(this.vehicle).subscribe(
         x=> console.log(x), 
         err=> {
             this.notifyService.showError("Unexpected Error!", "Error");
         });
-  
       this.notifyService.showSuccess("Vehicle Saved.","Success");
     }
   }
