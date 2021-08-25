@@ -102,9 +102,9 @@ export class VehicleFormComponent implements OnInit {
     }
     else{
 
-      if (this.vehicle.id === null) {
+/*       if (this.vehicle.id === null) {
         this.vehicle.id = 0;
-      }
+      } */
 
       this.vehicleService.create(this.vehicle).subscribe(
         x=> console.log(x), 
@@ -112,6 +112,15 @@ export class VehicleFormComponent implements OnInit {
             this.notifyService.showError("Unexpected Error!", "Error");
         });
       this.notifyService.showSuccess("Vehicle Saved.","Success");
+    }
+  }
+
+  delete(){
+    if (confirm('Are you sure?')) {
+      this.vehicleService.delete(this.vehicle.id).subscribe(x=>{
+        this.notifyService.showSuccess('Item deleted.','Delete');
+        this.router.navigate(['/vehicles/new']);
+      });
     }
   }
 

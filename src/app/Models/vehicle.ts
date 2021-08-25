@@ -10,7 +10,7 @@ export interface Contact{
 }
 
 export interface Vehicle{
-    id: number;
+    id: 0;
     model: KeyValuePair;
     make: KeyValuePair;
     isRegistered: boolean;

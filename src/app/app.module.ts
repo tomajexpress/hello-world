@@ -21,6 +21,8 @@ import { VehicleService } from './services/vehicle.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorHandlerService } from './error-handler.service';
+import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import { ErrorHandlerService } from './error-handler.service';
     ContactFormCrudComponent,
     VehicleFormComponent,
     NavmenuComponent,
+    VehicleListComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +50,7 @@ import { ErrorHandlerService } from './error-handler.service';
       { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
       { path: 'vehicles/new', component: VehicleFormComponent },
       { path: 'vehicles/edit/:id', component: VehicleFormComponent },
+      { path: 'vehicles', component: VehicleListComponent },
       { path: '**', redirectTo: 'home' }
   ])
   ],
