@@ -6,8 +6,8 @@
         
         <ul>
             <li>Name: {{ product.name }}</li>
-            <li>Price: {{ product.price }}</li>
-            <li>Production Date: {{ product.productionDate }}</li>
+            <li>Price: {{ product.price | currency}}</li>
+            <li>Production Date: {{ product.productionDate | date:'medium' }}</li>
         </ul>
 
         <p>

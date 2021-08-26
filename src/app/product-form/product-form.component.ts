@@ -10,8 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
-  
   product: SaveProduct = {};
+
   productId: number = 0;
 
   productGroups: any[] = [];
@@ -37,13 +37,25 @@ export class ProductFormComponent implements OnInit {
   }
 
   submit(){
-    this.productService.add(this.product).subscribe(
-      res =>  
-      {
-          this.notifyService.showSuccess("Product Saved.","Success"),
-          this.router.navigate(['/products'])
-      }      
-    );
+    if (this.productId) {
+      this.productService.update(this.productId, this.product).subscribe(
+        res =>  
+        {
+            this.notifyService.showSuccess("Product UpdatedS.","Success"),
+            this.router.navigate(['/products'])
+        }      
+      );
+    }
+    else{
+      this.productService.add(this.product).subscribe(
+        res =>  
+        {
+            this.notifyService.showSuccess("Product Saved.","Success"),
+            this.router.navigate(['/products'])
+        }      
+      );
+    }
+
   }
 
   getProductGroups(){
