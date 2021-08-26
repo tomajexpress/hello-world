@@ -1,0 +1,20 @@
+<h1>Product</h1>
+
+<div class="tab-content" *ngIf="product">
+    <!-- Vehicle tab -->
+    <div role="tabpanel" class="tab-pane active" id="basic">
+        
+        <ul>
+            <li>Name: {{ product.name }}</li>
+            <li>Price: {{ product.price }}</li>
+            <li>Production Date: {{ product.productionDate }}</li>
+        </ul>
+
+        <p>
+            <a class="btn btn-primary" [routerLink]="['/products/edit/', product.id]">Edit</a>
+            <button class="btn btn-danger" (click)="delete()">Delete</button>
+            <a class="btn btn-default" [routerLink]="['/products']">View All Vehicles</a>
+        </p>
+        
+    </div>
+</div>

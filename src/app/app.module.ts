@@ -1,3 +1,4 @@
+import { ProductService } from './services/product.service';
 import { CoursesService } from './courses.service';
 import { CoursesComponent } from './courses.component';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -23,6 +24,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { ErrorHandlerService } from './error-handler.service';
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductFormComponent } from './product-form/product-form.component';
+import { ProductViewComponent } from './product-view/product-view.component';
 
 
 @NgModule({
@@ -38,6 +42,9 @@ import { PaginationComponent } from './pagination/pagination.component';
     NavmenuComponent,
     VehicleListComponent,
     PaginationComponent,
+    ProductListComponent,
+    ProductFormComponent,
+    ProductViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,16 +54,23 @@ import { PaginationComponent } from './pagination/pagination.component';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
-      { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
+      { path: '', redirectTo: '', pathMatch: 'full' },
       { path: 'vehicles/new', component: VehicleFormComponent },
       { path: 'vehicles/edit/:id', component: VehicleFormComponent },
       { path: 'vehicles', component: VehicleListComponent },
+
+      { path: 'products', component: ProductListComponent },
+      { path: 'products/new', component: ProductFormComponent },
+      { path: 'products/edit/:id', component: ProductFormComponent },
+      { path: 'products/:id', component: ProductViewComponent },
+
       { path: '**', redirectTo: 'home' }
   ])
   ],
   providers: [
     CoursesService,
     VehicleService,
+    ProductService,
     {provide: ErrorHandler, useClass: ErrorHandlerService}
   ],
   bootstrap: [AppComponent]

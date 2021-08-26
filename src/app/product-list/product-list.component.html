@@ -1,0 +1,29 @@
+<h1>
+    Products
+</h1>
+<p>
+    <a [routerLink]="['/products/new']" class="btn btn-primary">New Product</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th *ngFor="let c of columns">
+                <div>
+                    {{ c.title }}
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let entity of queryResult.entities">
+            <td>{{entity.id}}</td>
+            <td>{{entity.name}}</td>
+            <td>{{entity.productionDate}}</td>
+            <td>{{entity.price}}</td>
+            <td>{{entity.productGroup.name}}</td>
+            <td>
+                <a [routerLink]="['/products/', entity.id]">View</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
