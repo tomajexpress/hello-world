@@ -1,5 +1,5 @@
 import { ProductService } from './../services/product.service';
-import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-product-list',
@@ -10,7 +10,7 @@ export class ProductListComponent implements OnInit {
 
   queryResult: any;
 
-  private readonly PAGE_SIZE = 3; 
+  private readonly PAGE_SIZE = 5; 
 
   query: any = {
     pageSize: this.PAGE_SIZE
