@@ -10,6 +10,12 @@ export class ProductListComponent implements OnInit {
 
   queryResult: any;
 
+  private readonly PAGE_SIZE = 3; 
+
+  query: any = {
+    pageSize: this.PAGE_SIZE
+  };
+
   columns = [
     {title : 'Identity'}, 
     {title : 'Name'}, 
@@ -28,11 +34,27 @@ export class ProductListComponent implements OnInit {
 
   
   populateList(){
-    this.productService.getAllProducts().subscribe(
+    this.productService.getPaged(this.query).subscribe(
       res => { this.queryResult = res; }
     );
   }
 
+  onFilterChange() {
+    this.query.page = 1; 
+    this.populateList();
+  }
 
+  resetFilter() {
+    this.query = {
+      page: 1,
+      pageSize: this.PAGE_SIZE
+    };
+    this.populateList();
+  }
+
+  onPageChange(page: any) {
+    this.query.page = page; 
+    this.populateList();
+  }
 
 }

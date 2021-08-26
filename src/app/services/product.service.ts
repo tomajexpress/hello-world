@@ -20,6 +20,10 @@ export class ProductService {
     return this.http.get(this.url + "/Product/GetAll");
   }
 
+  getPaged(filter: any){
+    return this.http.get(this.url+ "/Product/GetPaged?"+ this.toQueryString(filter));
+  }
+
   getProductGroups(){
     return this.http.get<any[]>(this.url+"/Product/GetAllProductGroups")
   }
@@ -30,6 +34,16 @@ export class ProductService {
   
   delete(id: any){
     return this.http.delete(this.url+"/Product/Delete/"+id);
+  }
+
+  toQueryString(obj: any) {
+    var parts = [];
+    for (var property in obj) {
+      var value = obj[property];
+      if (value != null && value != undefined) 
+        parts.push(encodeURIComponent(property) + '=' + encodeURIComponent(value));
+    }
+    return parts.join('&');
   }
 
 }
