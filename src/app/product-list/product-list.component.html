@@ -4,7 +4,7 @@
 <p>
     <a [routerLink]="['/products/new']" class="btn btn-primary">New Product</a>
 </p>
-<table class="table">
+<table class="table" *ngIf="queryResult && queryResult.entities">
     <thead>
         <tr>
             <th *ngFor="let c of columns">

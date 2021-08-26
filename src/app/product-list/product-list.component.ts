@@ -26,9 +26,6 @@ export class ProductListComponent implements OnInit {
     this.populateList();
   }
 
-/*   ngAfterContentInit(){
-    this.populateList();
-  } */
   
   populateList(){
     this.productService.getAllProducts().subscribe(
