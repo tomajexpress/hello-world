@@ -17,10 +17,10 @@ export class ProductListComponent implements OnInit {
   };
 
   columns = [
-    {title : 'Identity'}, 
+    {title : 'Identity', key: 'id', isSortable: true}, 
     {title : 'Name'}, 
-    {title : 'Production Date'},
-    {title : 'Price'},  
+    {title : 'Production Date', key: 'productionDate', isSortable: true},
+    {title : 'Price', key: 'price', isSortable: true},  
     {title : 'Product Group Name'}, 
   ];
 
@@ -54,6 +54,19 @@ export class ProductListComponent implements OnInit {
 
   onPageChange(page: any) {
     this.query.page = page; 
+    this.populateList();
+  }
+
+  sortBy(columnName: string) {
+    if (this.query.sortBy === columnName) 
+    {
+        this.query.isSortAscending = !this.query.isSortAscending; 
+    } 
+    else 
+    {
+        this.query.sortBy = columnName;
+        this.query.isSortAscending = true;
+    }
     this.populateList();
   }
 
