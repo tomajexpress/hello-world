@@ -30,6 +30,9 @@ import { ProductViewComponent } from './product-view/product-view.component';
 import { ProductListMaterialComponent } from './product-material/product-list-material/product-list-material.component';
 
 
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatTableModule} from '@angular/material/table'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +57,8 @@ import { ProductListMaterialComponent } from './product-material/product-list-ma
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatCheckboxModule,
+    MatTableModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
       { path: '', redirectTo: '', pathMatch: 'full' },
