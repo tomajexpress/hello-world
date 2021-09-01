@@ -27,6 +27,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductViewComponent } from './product-view/product-view.component';
+import { ProductListMaterialComponent } from './product-material/product-list-material/product-list-material.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { ProductViewComponent } from './product-view/product-view.component';
     ProductListComponent,
     ProductFormComponent,
     ProductViewComponent,
+    ProductListMaterialComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +65,8 @@ import { ProductViewComponent } from './product-view/product-view.component';
       { path: 'products/new', component: ProductFormComponent },
       { path: 'products/edit/:id', component: ProductFormComponent },
       { path: 'products/:id', component: ProductViewComponent },
+
+      { path: 'products-material', component: ProductListMaterialComponent },
 
       { path: '**', redirectTo: 'home' }
   ])

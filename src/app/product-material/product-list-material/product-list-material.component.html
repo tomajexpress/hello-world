@@ -1,14 +1,6 @@
-<h1>
-    Products
-</h1>
-<p>
-    <a [routerLink]="['/products/new']" class="btn btn-primary">New Product</a>
-</p>
-
 <div class="well">    
     <div class="form-group"><label for="Name">Name</label>
-        <input type="text" id="name" class="form-control" [(ngModel)]="query.name" 
-        name="name" (input)="onFilterChange()">
+        <input type="text" id="name" class="form-control" [(ngModel)]="query.name" name="name" (change)="onFilterChange()">
     </div>
     <button class="btn btn-primary" (click)="resetFilter()">Reset</button>
 </div>
