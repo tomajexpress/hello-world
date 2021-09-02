@@ -32,6 +32,7 @@ import { ProductListMaterialComponent } from './product-material/product-list-ma
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table'
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import {MatTableModule} from '@angular/material/table'
     BrowserAnimationsModule,
     MatCheckboxModule,
     MatTableModule,
+    MatPaginatorModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
       { path: '', redirectTo: '', pathMatch: 'full' },
@@ -81,6 +83,9 @@ import {MatTableModule} from '@angular/material/table'
     VehicleService,
     ProductService,
     {provide: ErrorHandler, useClass: ErrorHandlerService}
+  ],
+  exports:[
+    MatPaginator
   ],
   bootstrap: [AppComponent]
 })

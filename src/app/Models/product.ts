@@ -10,5 +10,11 @@ export interface Product {
     name?: string,
     price?: number,
     productionDate?: Date,
-    productGroupId?: number
+    productGroupId?: number,
+    productGroup: ProductGroup
+}
+
+export interface ProductGroup {
+    id?: number,
+    name?: string
 }

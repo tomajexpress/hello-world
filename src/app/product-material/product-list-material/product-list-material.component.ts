@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { ProductService } from 'src/app/services/product.service';
+
 
 @Component({
   selector: 'app-product-list-material',
   templateUrl: './product-list-material.component.html',
   styleUrls: ['./product-list-material.component.css']
 })
-export class ProductListMaterialComponent implements OnInit {
 
+
+export class ProductListMaterialComponent implements OnInit, AfterViewInit {
+  @ViewChild('paginator')
+  paginator!: MatPaginator;
+  
   queryResult: any;
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
 
   private readonly PAGE_SIZE = 5; 
 
@@ -28,13 +33,23 @@ export class ProductListMaterialComponent implements OnInit {
     {title : 'Product Group Name'}, 
   ];
 
-  constructor(private productService: ProductService) {
+  dataSourcePagination: MatTableDataSource<any>;
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  dataSource = ELEMENT_DATA;
 
+  constructor(private productService: ProductService) {
+    this.dataSourcePagination = new MatTableDataSource(this.dataSource);
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSourcePagination = new MatTableDataSource(this.dataSource);
+    this.dataSourcePagination.paginator = this.paginator;
   }
 
   ngOnInit(): void {
     this.populateList();
   }
+
 
   
   populateList(){
