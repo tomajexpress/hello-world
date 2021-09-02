@@ -1,0 +1,109 @@
+<div class="well">    
+    <div class="form-group"><label for="Name">Name</label>
+        <input type="text" id="name" class="form-control" [(ngModel)]="query.name" name="name" (change)="onFilterChange()">
+    </div>
+    <button class="btn btn-primary" (click)="resetFilter()">Reset</button>
+</div>
+
+<table class="table" *ngIf="queryResult && queryResult.items">
+    <thead>
+        <tr>
+            <th *ngFor="let c of cols">
+                <div *ngIf="c.isSortable" (click)="sortBy(c.key)">
+                    {{ c.title }}
+                
+                    <i *ngIf="query.sortBy === c.key" 
+                        class="fa"
+                        [class.fa-sort-asc]="query.isSortAscending"
+                        [class.fa-sort-desc]="!query.isSortAscending"
+                        >
+                    </i>
+                </div>
+                <div *ngIf="!c.isSortable">
+                    {{ c.title }}
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let entity of queryResult.items">
+            <td>{{entity.id}}</td>
+            <td>{{entity.name}}</td>
+            <td>{{entity.productionDate | date:'medium' }} </td>
+            <td>{{entity.price | currency}}</td>
+            <td>{{entity.productGroup.name}}</td>
+            <td>
+                <a [routerLink]="['/products/', entity.id]">View</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<pagination *ngIf="queryResult && queryResult.items" [total-items]="queryResult.totalItems" [page-size]="query.pageSize" (page-changed)="onPageChange($event)"></pagination>
+
+
+
+<table style="width: 100%;" mat-table [dataSource]="queryResult.items" class="mat-elevation-z8" *ngIf="queryResult">
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Identity </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="productionDate">
+        <th mat-header-cell *matHeaderCellDef> Production Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.productionDate | date:'medium' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let element"> {{element.price | currency}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="productGroupName">
+        <th mat-header-cell *matHeaderCellDef> Product Group Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.productGroup.name}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="matColumns"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: matColumns;"></tr>
+
+</table>
+
+<br/>
+
+<table style="width: 100%;" mat-table [dataSource]="dataSourcePagination" class="mat-elevation-z8">
+  <!-- Position Column -->
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="weight">
+    <th mat-header-cell *matHeaderCellDef> Weight </th>
+    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="symbol">
+    <th mat-header-cell *matHeaderCellDef> Symbol </th>
+    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+<mat-paginator #paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>

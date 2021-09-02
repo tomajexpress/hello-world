@@ -27,7 +27,12 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductViewComponent } from './product-view/product-view.component';
+import { ProductListMaterialComponent } from './product-material/product-list-material/product-list-material.component';
 
+
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatTableModule} from '@angular/material/table'
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -45,6 +50,7 @@ import { ProductViewComponent } from './product-view/product-view.component';
     ProductListComponent,
     ProductFormComponent,
     ProductViewComponent,
+    ProductListMaterialComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +58,9 @@ import { ProductViewComponent } from './product-view/product-view.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatCheckboxModule,
+    MatTableModule,
+    MatPaginatorModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
       { path: '', redirectTo: '', pathMatch: 'full' },
@@ -64,6 +73,8 @@ import { ProductViewComponent } from './product-view/product-view.component';
       { path: 'products/edit/:id', component: ProductFormComponent },
       { path: 'products/:id', component: ProductViewComponent },
 
+      { path: 'products-material', component: ProductListMaterialComponent },
+
       { path: '**', redirectTo: 'home' }
   ])
   ],
@@ -72,6 +83,9 @@ import { ProductViewComponent } from './product-view/product-view.component';
     VehicleService,
     ProductService,
     {provide: ErrorHandler, useClass: ErrorHandlerService}
+  ],
+  exports:[
+    MatPaginator
   ],
   bootstrap: [AppComponent]
 })
