@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductService } from 'src/app/services/product.service';
 
-
+import * as _ from 'underscore';
 @Component({
   selector: 'app-product-list-material',
   templateUrl: './product-list-material.component.html'
@@ -38,6 +38,8 @@ export class ProductListMaterialComponent implements OnInit, AfterViewInit {
 
   constructor(private productService: ProductService) {
     this.dataSourcePagination = new MatTableDataSource(this.dataSource);
+
+    this.onFilterChange = _.debounce(this.onFilterChange, 1000);
   }
 
   ngAfterViewInit(): void {
@@ -48,11 +50,10 @@ export class ProductListMaterialComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.populateList();
   }
-
-
   
   populateList(){
-    this.productService.getPaged(this.query).subscribe(
+    this.productService.getPaged(this.query)
+    .subscribe(
       res => { this.queryResult = res; }
     );
   }
