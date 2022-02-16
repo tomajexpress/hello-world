@@ -3,7 +3,7 @@
 <div class="tab-content" *ngIf="product">
     <!-- Vehicle tab -->
     <div role="tabpanel" class="tab-pane active" id="basic">
-        
+        <div>Hello Altin</div>
         <ul>
             <li>Name: {{ product.name }}</li>
             <li>Price: {{ product.price | currency}}</li>
@@ -15,6 +15,6 @@
             <button class="btn btn-danger" (click)="delete()">Delete</button>
             <a class="btn btn-default" [routerLink]="['/products']">View All Vehicles</a>
         </p>
-        
+
     </div>
 </div>
